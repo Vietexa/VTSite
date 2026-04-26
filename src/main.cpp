@@ -13,7 +13,7 @@
 
 static bool init_window_and_renderer(AppContext *app_ctx){
 
-app_ctx->window = SDL_CreateWindow("Site",1920, 1080,0);
+app_ctx->window = SDL_CreateWindow("Site",1920, 1080, SDL_WINDOW_HIGH_PIXEL_DENSITY);
 
     if (!app_ctx->window) {
         SDL_Log("Couldn't create the window: %s", SDL_GetError());  
@@ -50,7 +50,9 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]){
         return SDL_APP_FAILURE;
     }
 
+    #ifndef __EMSCRIPTEN__
     SDL_SetWindowFullscreen(app_ctx->window, true);
+    #endif
 
     SDL_SetRenderLogicalPresentation(app_ctx->renderer, 1920, 1080,SDL_LOGICAL_PRESENTATION_STRETCH);
 

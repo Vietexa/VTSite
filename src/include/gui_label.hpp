@@ -14,15 +14,15 @@ public:
           float x,
           float y);
 
-    ~Label();
-    void setText(const std::string& newText);
+    virtual ~Label();
+    virtual void setText(const std::string& newText);
     void setColor(SDL_Color newColor);
     void setPosition(float newX, float newY);
-    void render();
+    virtual void render();
 
 private:
     void updateTexture();
-
+protected:
     SDL_Renderer* renderer;
     TTF_Font* font;
     SDL_Texture* texture;

@@ -44,7 +44,7 @@ set(SDLTTF_VENDORED ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(SDL3_ttf)
 
 add_executable(VTSite src/main.cpp src/app_context.cpp 
-src/event.cpp src/gui_label.cpp src/loop.cpp src/element_init.cpp)
+src/event.cpp src/gui_label.cpp src/gui_button.cpp src/loop.cpp src/element_init.cpp)
 
 
 target_include_directories(VTSite PRIVATE src src/include)
@@ -56,7 +56,7 @@ if(EMSCRIPTEN)
 
     target_link_options(VTSite PRIVATE
         "-sALLOW_MEMORY_GROWTH"               
-        "--preload-file" "${CMAKE_SOURCE_DIR}/assets@assets"
-        
+        "--preload-file" "${CMAKE_SOURCE_DIR}/app_data/assets@assets"
+        "--shell-file" "${CMAKE_SOURCE_DIR}/app_data/shell.html"
     )
 endif()

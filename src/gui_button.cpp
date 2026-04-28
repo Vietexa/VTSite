@@ -30,17 +30,12 @@ Button::~Button() { }
     m_dirty = true;          
 }
 
+void Button::was_pressed(SDL_Event *e){
 
- bool Button::was_clicked(SDL_Event *event){
-    update_layout();
-
-    SDL_Event e = *event;
-    SDL_ConvertEventToRenderCoordinates(renderer, &e);
-
-    if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+if (e->type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
         
-        float mx = e.button.x;
-        float my = e.button.y;
+        float mx = e->button.x;
+        float my = e->button.y;
 
         if (mx >= x && mx <= x + button_width &&
             my >= y && my <= y + button_height) {
@@ -48,7 +43,22 @@ Button::~Button() { }
         }
     }
 
+}
+
+
+ bool Button::was_clicked(SDL_Event *event){
+
+    update_layout();
+
+    SDL_Event e = *event;
+
+    //Convert the event to use the logical coordinates
+    SDL_ConvertEventToRenderCoordinates(renderer, &e);
+
+    was_pressed(&e);
+    
     if (e.type == SDL_EVENT_MOUSE_BUTTON_UP) {
+        
         float mx = e.button.x;
         float my = e.button.y;
 
@@ -69,6 +79,7 @@ Button::~Button() { }
 
  void Button::update_layout() {
      if (!m_dirty) return;
+
     float padding_x = 10.0f;
     float padding_y = 5.0f;
 

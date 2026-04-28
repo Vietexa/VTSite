@@ -1,4 +1,5 @@
 
+#include <memory>
 #define SDL_MAIN_USE_CALLBACKS
 #include <SDL3/SDL_main.h>
 #include <SDL3/SDL_video.h>
@@ -10,6 +11,7 @@
 #include "loop.hpp"
 #include "event.hpp"
 #include "element_init.hpp"
+#include "scene_main_menu.hpp"
 
 static bool init_window_and_renderer(AppContext *app_ctx){
 
@@ -61,8 +63,10 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]){
         SDL_Log("Couldn't initialize the TTF %s", SDL_GetError());
         return SDL_APP_FAILURE;
      }
+    app_ctx->scene_ptr = std::make_unique<SceneMainMenu>();
 
      initalize_elements(app_ctx);
+     
      
 
     return SDL_APP_CONTINUE; 

@@ -44,7 +44,9 @@ set(SDLTTF_VENDORED ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(SDL3_ttf)
 
 add_executable(VTSite src/main.cpp src/app_context.cpp 
-src/event.cpp src/gui_label.cpp src/gui_button.cpp src/loop.cpp src/element_init.cpp)
+src/event.cpp src/gui_label.cpp src/gui_button.cpp
+ src/loop.cpp src/element_init.cpp
+ src/scene.cpp src/scene_game.cpp src/scene_main_menu.cpp)
 
 
 target_include_directories(VTSite PRIVATE src src/include)

@@ -21,6 +21,9 @@ Button(SDL_Renderer* renderer,
     bool was_clicked(SDL_Event *event);
     void update_layout();
     private:
+
+    void was_pressed(SDL_Event *event);
+
     SDL_Color m_btn_color;
 
     Uint8 red = 0;

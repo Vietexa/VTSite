@@ -77,7 +77,7 @@ SDL_AppResult SDL_AppEvent(void *appstate, SDL_Event *event){
 AppContext *app_ctx = static_cast<AppContext*>(appstate);
 
     if(!process_event(app_ctx, event)) return SDL_APP_FAILURE;
-
+    if (event->type == SDL_EVENT_QUIT) return SDL_APP_SUCCESS;
 
     return SDL_APP_CONTINUE; 
  }

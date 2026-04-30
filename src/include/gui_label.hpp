@@ -23,13 +23,15 @@ public:
 private:
     void updateTexture();
 protected:
-    SDL_Renderer* renderer;
-    TTF_Font* font;
-    SDL_Texture* texture;
+    SDL_Renderer* renderer = nullptr;
+    TTF_Font* font = nullptr;
+    SDL_Texture* texture = nullptr;
 
-    std::string text;
-    SDL_Color color;
+    std::string text = "";
+    SDL_Color color = {};
 
-    float x, y;
-    float width, height;
+    float x = 0;
+    float y = 0;
+    float width = 0;
+    float height = 0;
 };

@@ -24,7 +24,7 @@ Button(SDL_Renderer* renderer,
 
     void was_pressed(SDL_Event *event);
 
-    SDL_Color m_btn_color;
+    SDL_Color m_btn_color = {};
 
     Uint8 red = 0;
     Uint8 green = 0;

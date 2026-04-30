@@ -4,15 +4,8 @@
 #include "scene.hpp"
 
 void SceneMainMenu::init(AppContext *app_ctx){
-labels.emplace_back(app_ctx->renderer,
-     std::string("Hello there!"),
-     std::string("assets/fonts/default.ttf"),
-    50,
-    SDL_Color{255,255,255,255},
-    500,
-    500);
-
-buttons.emplace_back(app_ctx->renderer,std::string("hello there"), std::string("assets/fonts/default.ttf"),50, SDL_Color{255,255,255,255}, 1000, 1000, SDL_Color{255,0,0,255} );
+add_label(app_ctx->renderer, 500, 500, "This is scene 1");
+add_button(app_ctx->renderer, 1000, 1000, "Test button");
 }
 
 void SceneMainMenu::update(AppContext *app_ctx){

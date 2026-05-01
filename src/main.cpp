@@ -13,26 +13,8 @@
 #include "element_init.hpp"
 #include "scene_main_menu.hpp"
 
-static bool init_window_and_renderer(AppContext *app_ctx){
-
-app_ctx->window = SDL_CreateWindow("Site",1920, 1080, SDL_WINDOW_HIGH_PIXEL_DENSITY);
-
-    if (!app_ctx->window) {
-        SDL_Log("Couldn't create the window: %s", SDL_GetError());  
-        return false;    
-    }
-
-    app_ctx->renderer = SDL_CreateRenderer(app_ctx->window, NULL);
-
-    if (!app_ctx->renderer){
-        SDL_Log("Couldn't create the renderer: %s", SDL_GetError());  
-        return false;    
-    }
-
-    return true;
-
-}
-
+static bool init_window_and_renderer(AppContext *app_ctx);
+static void handle_delta_time(AppContext *app_ctx);
 
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]){
@@ -66,7 +48,9 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char *argv[]){
     app_ctx->scene_ptr = std::make_unique<SceneMainMenu>();
 
      initalize_elements(app_ctx);
-     
+
+    app_ctx->last_time = SDL_GetTicksNS();
+    app_ctx->delta_time = 0.0f;
      
 
     return SDL_APP_CONTINUE; 
@@ -86,6 +70,8 @@ AppContext *app_ctx = static_cast<AppContext*>(appstate);
 SDL_AppResult SDL_AppIterate(void *appstate){  
    AppContext *app_ctx = static_cast<AppContext*>(appstate);
     
+    handle_delta_time(app_ctx);
+
     if(!loop(app_ctx)) return SDL_APP_FAILURE;
 
     return SDL_APP_CONTINUE; 
@@ -100,6 +86,46 @@ void SDL_AppQuit(void *appstate, SDL_AppResult result){
     //Delete app and let the destructor run
     delete app;
 
+
+
+}
+
+
+static bool init_window_and_renderer(AppContext *app_ctx){
+
+app_ctx->window = SDL_CreateWindow("Site",1920, 1080, SDL_WINDOW_HIGH_PIXEL_DENSITY);
+
+    if (!app_ctx->window) {
+        SDL_Log("Couldn't create the window: %s", SDL_GetError());  
+        return false;    
+    }
+
+    app_ctx->renderer = SDL_CreateRenderer(app_ctx->window, NULL);
+
+    if (!app_ctx->renderer){
+        SDL_Log("Couldn't create the renderer: %s", SDL_GetError());  
+        return false;    
+    }
+
+    return true;
+
+}
+
+static void handle_delta_time(AppContext *app_ctx){
+
+    Uint64 current_time = SDL_GetTicksNS();
+    Uint64 elapsed_ns = current_time - app_ctx->last_time;
+    
+   
+    app_ctx->last_time = current_time;
+
+    
+    app_ctx->delta_time = (float)elapsed_ns / 1000000000.0f;
+
+    // Safety: Cap delta time to 0.1s (10 FPS equivalent) 
+    if (app_ctx->delta_time > 0.1f) {
+        app_ctx->delta_time = 0.1f;
+    }
 
 
 }

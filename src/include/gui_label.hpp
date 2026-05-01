@@ -18,7 +18,12 @@ public:
     virtual void setText(const std::string& newText);
     void setColor(SDL_Color newColor);
     void setPosition(float newX, float newY);
+    void increase_pos_x(float amount);
+    void increase_pos_y(float amount);
     virtual void render();
+
+    float x = 0;
+    float y = 0;
 
 private:
     void updateTexture();
@@ -30,8 +35,7 @@ protected:
     std::string text = "";
     SDL_Color color = {};
 
-    float x = 0;
-    float y = 0;
+    
     float width = 0;
     float height = 0;
 };

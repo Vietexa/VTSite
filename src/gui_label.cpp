@@ -34,6 +34,15 @@ Label::Label(SDL_Renderer* renderer,
         y = newY;
     }
 
+    void Label::increase_pos_x(float amount) {
+        x += amount; 
+    }
+
+    void Label::increase_pos_y(float amount) {
+        y += amount; 
+    }
+      
+
     void Label::render() {
         if (!texture) return;
         SDL_FRect dst = { x, y, width, height };

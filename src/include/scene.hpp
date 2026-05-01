@@ -27,7 +27,7 @@ void add_button(
  std::string font = "assets/fonts/default.ttf", 
  int font_size = 50, 
  SDL_Color color = {255,255,255,255},
- SDL_Color btn_color = {0,0,0,255}
+ SDL_Color btn_color = {0,0,200,255}
  );
 
 void add_label(
